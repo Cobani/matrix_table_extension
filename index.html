@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Matrix Table</title>
+    <link rel="stylesheet" href="./fonts/fonts.css?v=22ceb76171" />
+    <link rel="stylesheet" href="./chart.css?v=532ffe946c" />
+    <script src="./timing.js?v=666dc99b7c"></script>
+    <script src="./icons.js?v=899a3f9c7f"></script>
+    <script src="./config.js?v=92fc2c1cb3"></script>
+    <script src="./export.js?v=dfae6446a4"></script>
+    <script src="./chart.js?v=8675701a49"></script>
+  </head>
+
+  <body>
+    <div id="card" class="card is-empty">
+      <div class="head">
+        <div id="icon" class="icon" aria-hidden="true"></div>
+        <div id="title" class="title"></div>
+        <div id="explanation" class="explanation"></div>
+      </div>
+
+      <div id="tools" class="tools">
+        <button id="exportBtn" class="tool-btn" type="button" title="Export to Excel or CSV" aria-label="Export">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.8 6.8M8 10l3.2-3.2M2.5 11v1.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div id="body" class="body">
+        <div id="plot" class="plot">
+          <div id="scroll" class="scroll" role="region" aria-label="Matrix table"></div>
+        </div>
+      </div>
+
+      <div id="hint" class="hint"></div>
+    </div>
+
+    <div id="tooltip" class="tooltip" role="tooltip"></div>
+    <div id="menu" class="menu" role="menu"></div>
+    <div id="toast" class="toast" role="status"></div>
+
+    <script>
+      // Dev preview only: index.html?mock loads a stand-in for the Tableau API.
+      if (/[?&]mock\b/.test(location.search)) document.write('<script src="./dev/mock.js?v=06a904ca8b"><\/script>');
+    </script>
+    <script>
+      // Tableau Extensions API is bundled in ./lib (no CDN). Skipped when a dev mock already defined it.
+      if (!(window.tableau && window.tableau.extensions)) {
+        document.write('<script src="./lib/tableau.extensions.1.17.0.min.js?v=276479f2c7"><\/script>');
+      }
+    </script>
+    <script>
+      if (window.ExtTiming) ExtTiming.mark('Tableau API library loaded');
+      if (window.tableau && window.tableau.extensions) {
+        window.MatrixTable.init();
+      } else {
+        document.getElementById('hint').textContent =
+            'Could not load the Tableau Extensions API library.';
+      }
+    </script>
+  </body>
+</html>

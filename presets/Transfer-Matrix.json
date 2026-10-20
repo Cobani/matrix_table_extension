@@ -1,0 +1,27 @@
+{
+  "type": "tableau-matrix-table-preset",
+  "version": 1,
+  "name": "Transfer matrix",
+  "scope": "all",
+  "exported": "2026-10-20T10:00:00.000Z",
+  "settings": {
+    "headers": {
+      "memberColors": {
+        "Daily": "#7B4FC9",
+        "Monthly": "#7B4FC9",
+        "Term": "#7B4FC9"
+      }
+    },
+    "totals": {
+      "rowGrandLabel": "IN",
+      "colGrandLabel": "OUT"
+    },
+    "layout": {
+      "square": "on",
+      "diagonal": true
+    },
+    "explanation": {
+      "text": "From product (rows) to product (columns), SAR M"
+    }
+  }
+}

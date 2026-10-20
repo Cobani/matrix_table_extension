@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <worksheet-extension id="com.ilyascoban.vizext.matrixtable" extension-version="1.0.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>Matrix: dimensions on Rows and Columns (outermost first, several levels each), measures on Measure (main value plus smaller % of total and other calculations), optional Color measure for shading; measures on Tooltip add tooltip rows.</description>
+    <author name="Ilyas Coban" email="ilyas.cbn@gmail.com" organization="Ilyas Coban" website="https://www.linkedin.com/in/ilyascoban/"/>
+    <min-api-version>1.11</min-api-version>
+    <source-location>
+      <url>https://cobani.github.io/matrix_table_extension/</url>
+    </source-location>
+    <icon/>
+
+    <!-- Adds the "Format Extension" button that opens configure.html -->
+    <context-menu>
+      <configure-context-menu-item />
+    </context-menu>
+
+    <encoding id="rows">
+      <display-name resource-id="rows-name">Rows</display-name>
+      <role-spec>
+        <role-type>discrete-dimension</role-type>
+      </role-spec>
+      <fields max-count="6"/>
+      <tooltip resource-id="rows-tooltip">One or more dimensions down the side, outermost first (e.g. Category, Sub-Category). Outer fields group the inner ones and can have group totals. Optional.</tooltip>
+    </encoding>
+
+    <encoding id="columns">
+      <display-name resource-id="columns-name">Columns</display-name>
+      <role-spec>
+        <role-type>discrete-dimension</role-type>
+      </role-spec>
+      <fields max-count="6"/>
+      <tooltip resource-id="columns-tooltip">One or more dimensions across the top, outermost first (e.g. Year, Quarter). Optional.</tooltip>
+    </encoding>
+
+    <encoding id="values">
+      <display-name resource-id="values-name">Measure</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>continuous-measure</role-type>
+      </role-spec>
+      <fields max-count="10"/>
+      <encoding-icon token="metric"/>
+      <tooltip resource-id="values-tooltip">The measures in the cells. Drop each measure separately. The first is the main value; the others show smaller under it, or as their own columns or rows (Format → Layout).</tooltip>
+    </encoding>
+
+    <encoding id="color">
+      <display-name resource-id="color-name">Color</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>continuous-measure</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <tooltip resource-id="color-tooltip">Optional measure that shades the cells (heat map), e.g. growth while the cells show amounts.</tooltip>
+    </encoding>
+  </worksheet-extension>
+
+  <resources>
+    <resource id="name"><text locale="en_US">Matrix Table</text></resource>
+    <resource id="rows-name"><text locale="en_US">Rows</text></resource>
+    <resource id="rows-tooltip"><text locale="en_US">One or more dimensions down the side, outermost first (e.g. Category, Sub-Category). Outer fields group the inner ones and can have group totals. Optional.</text></resource>
+    <resource id="columns-name"><text locale="en_US">Columns</text></resource>
+    <resource id="columns-tooltip"><text locale="en_US">One or more dimensions across the top, outermost first (e.g. Year, Quarter). Optional.</text></resource>
+    <resource id="values-name"><text locale="en_US">Measure</text></resource>
+    <resource id="values-tooltip"><text locale="en_US">The measures in the cells. Drop each measure separately. The first is the main value; the others show smaller under it, or as their own columns or rows (Format → Layout).</text></resource>
+    <resource id="color-name"><text locale="en_US">Color</text></resource>
+    <resource id="color-tooltip"><text locale="en_US">Optional measure that shades the cells (heat map), e.g. growth while the cells show amounts.</text></resource>
+  </resources>
+</manifest>

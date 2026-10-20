@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Matrix Table — dev preview</title>
+<style>
+  body { margin: 0; font: 13px/1.4 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #263244; background: #eef0f2; }
+  .bar { display: flex; gap: 14px; align-items: center; padding: 10px 16px; background: #fff; border-bottom: 1px solid #e2e4e8; flex-wrap: wrap; }
+  .bar b { font-size: 14px; }
+  .wrap { display: flex; gap: 16px; padding: 16px; align-items: flex-start; }
+  .zone { resize: both; overflow: hidden; width: 900px; height: 520px; background: #fff; border: 1px solid #d5d9df; }
+  .zone iframe, .dlg iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .dlg { width: 620px; height: 780px; background: #fff; border: 1px solid #d5d9df; box-shadow: 0 6px 24px rgba(0,0,0,.12); display: none; }
+  button, select { font: inherit; padding: 4px 10px; }
+  .note { color: #68707d; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <b>Matrix Table — dev preview</b>
+    <label>Sample data
+      <select id="ds">
+        <option value="transfer">From → To products (base design, diagonal)</option>
+        <option value="sales">Region › Segment by Year, Sales + Profit, Color</option>
+        <option value="nested">Category › Sub-Category by Region › Segment</option>
+        <option value="monthly">Month by Year (differences)</option>
+        <option value="negative">Negative profit</option>
+        <option value="raw">Raw large numbers</option>
+        <option value="measures">Rows only, three measures</option>
+        <option value="ratios">Averages and distinct counts</option>
+        <option value="single">No dimensions, two measures</option>
+        <option value="wide">Three row levels, 30 columns (scroll)</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="rename"> Rename first Rows pill</label>
+    <button id="fmt" type="button">Format Extension</button>
+    <button id="reset" type="button">Reset settings</button>
+    <span class="note">Right-click for the menu, click ▾ to fold a group, click a column header to sort. Drag the zone's corner to resize.</span>
+  </div>
+  <div class="wrap">
+    <div class="zone"><iframe id="card" title="matrix"></iframe></div>
+    <div class="dlg" id="dlg"><iframe id="dialog" title="Format dialog"></iframe></div>
+  </div>
+<script>
+  var ds = document.getElementById('ds');
+  ds.value = localStorage.getItem('mtMockData') || 'transfer';
+  var rn = document.getElementById('rename');
+  rn.checked = localStorage.getItem('mtMockRename') === '1';
+  rn.addEventListener('change', function () { localStorage.setItem('mtMockRename', rn.checked ? '1' : '0'); closeDlg(); load(); });
+  function load () { document.getElementById('card').src = '../index.html?mock&data=' + ds.value + (rn.checked ? '&rename' : '') + (/debug/.test(location.search) ? '&debug' : ''); }
+  ds.addEventListener('change', function () { localStorage.setItem('mtMockData', ds.value); closeDlg(); load(); });
+  document.getElementById('reset').addEventListener('click', function () { localStorage.removeItem('mtMockSettings'); closeDlg(); load(); });
+  document.getElementById('fmt').addEventListener('click', function () {
+    document.getElementById('card').contentWindow.postMessage({ type: 'mt-configure' }, '*');
+  });
+  function closeDlg () {
+    document.getElementById('dlg').style.display = 'none';
+    document.getElementById('dialog').src = 'about:blank';
+    var c = document.getElementById('card').contentWindow;
+    if (c) c.postMessage({ type: 'mt-dialog-closed' }, '*');
+  }
+  window.addEventListener('message', function (e) {
+    if (!e.data) return;
+    if (e.data.type === 'mt-open-dialog') {
+      document.getElementById('dlg').style.display = 'block';
+      document.getElementById('dialog').src = e.data.url;
+    }
+    if (e.data.type === 'mt-close-dialog') closeDlg();
+  });
+  load();
+</script>
+</body>
+</html>

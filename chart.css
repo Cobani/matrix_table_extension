@@ -1,0 +1,253 @@
+/* Matrix Table — header styled like KPI Card 3; fonts, colours and sizes are set
+   by chart.js from the saved settings (inline and in a generated <style>). */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: transparent;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+/* ---- Header (same as KPI Card 3) ------------------------------------- */
+.head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: center;
+  min-width: 0;
+  flex: none;
+}
+
+.icon {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.head.icon-span .icon { grid-row: 1 / span 2; }
+
+.icon svg,
+.icon img { display: block; }
+
+.title {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.explanation {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card.no-icon .head { grid-template-columns: minmax(0, 1fr); }
+
+.card.no-icon .title,
+.card.no-icon .explanation { grid-column: 1; }
+
+.card.no-head .head { display: none; }
+
+/* ---- Body ------------------------------------------------------------------ */
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---- Chart ------------------------------------------------------------ */
+.plot {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  border-radius: 4px;
+}
+
+/* ---- Tooltip ---------------------------------------------------------- */
+.tooltip {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  min-width: 150px;
+  max-width: 320px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid #e2e4e8;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(38, 50, 68, 0.12);
+  font-size: 12px;
+  line-height: 1.4;
+  color: #263244;
+  white-space: nowrap;
+}
+
+.tooltip.is-pinned { pointer-events: auto; max-height: 80vh; overflow: auto; box-shadow: 0 6px 22px rgba(38, 50, 68, 0.22); }
+
+.tt-close {
+  float: right;
+  margin: -4px -4px 0 8px;
+  border: 0;
+  background: none;
+  font-size: 15px;
+  line-height: 1;
+  color: #8c96a3;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.tt-path { color: #8c96a3; font-size: 11px; }
+.tt-name { color: #68707d; margin-bottom: 2px; }
+.tt-series { display: flex; align-items: center; gap: 6px; color: #55606e; }
+.tt-value { font-weight: 700; font-size: 14px; }
+.tt-note { color: #68707d; font-size: 11px; }
+.tt-rows { margin-top: 6px; border-top: 1px solid #eef0f2; padding-top: 5px; }
+.tt-head { display: flex; gap: 6px; font-size: 10.5px; color: #8c96a3; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 2px; }
+.tt-head .nm { flex: 1; }
+.tt-head button { border: 0; background: none; font: inherit; color: inherit; cursor: pointer; padding: 0 2px; text-transform: inherit; letter-spacing: inherit; }
+.tt-head button.is-on { color: #263244; font-weight: 700; }
+.tt-row { display: flex; align-items: center; gap: 6px; }
+.tt-row .sw { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.tt-row .nm { flex: 1; color: #55606e; overflow: hidden; text-overflow: ellipsis; }
+.tt-row .vl { font-weight: 600; }
+.tt-row .pc { color: #8c96a3; min-width: 42px; text-align: right; }
+.tt-more { color: #8c96a3; font-size: 11px; }
+.tt-comment { margin-top: 6px; padding: 5px 7px; border-left: 3px solid #eb644c; background: #fdf3f1; white-space: normal; font-size: 11.5px; }
+.tt-comment .by { color: #8c96a3; font-size: 10.5px; }
+.tt-hint { margin-top: 5px; color: #a0a8b3; font-size: 10.5px; }
+
+/* ---- Right-click menu ------------------------------------------------- */
+.menu {
+  display: none;
+  position: fixed;
+  z-index: 20;
+  min-width: 200px;
+  padding: 4px 0;
+  background: #ffffff;
+  border: 1px solid #e2e4e8;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(38, 50, 68, 0.16);
+  font: 12.5px/1.3 "Lato", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #263244;
+}
+
+.menu button {
+  display: block;
+  width: 100%;
+  padding: 7px 14px;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu button:hover { background: #f2f4f6; }
+.menu button:disabled { color: #b0b6bf; cursor: default; background: none; }
+.menu hr { border: 0; border-top: 1px solid #eef0f2; margin: 4px 0; }
+.menu .menu-head { padding: 4px 14px 2px; font-size: 11px; color: #8c96a3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 280px; }
+
+/* ---- Empty state ------------------------------------------------------ */
+.hint {
+  display: none;
+  margin: auto;
+  max-width: 90%;
+  font: 12px/1.45 "Lato", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #68707d;
+  text-align: center;
+}
+
+.card.is-empty > :not(.hint) { display: none !important; }
+.card.is-empty .hint { display: block; }
+
+/* ---- Matrix ------------------------------------------------------------ */
+.card { position: relative; }
+.plot { display: flex; }
+.scroll { flex: 1 1 auto; min-width: 0; min-height: 0; overflow: auto; position: relative; }
+
+.mx {
+  border-collapse: separate;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.mx th { font-weight: inherit; padding: 2px 6px; }
+.mx th.ch { padding: 2px 4px 4px; }
+.mx th .hl { display: inline-flex; align-items: center; gap: 4px; max-width: 100%; }
+.mx th .hl.v-up, .mx th .hl.v-down { writing-mode: vertical-rl; white-space: nowrap; }
+.mx th .hl.v-up { transform: rotate(180deg); }
+.mx th.rh .hl { justify-content: inherit; }
+.mx th .tg { cursor: pointer; font-size: 0.85em; opacity: 0.55; padding: 0 2px; user-select: none; }
+.mx th .tg:hover { opacity: 1; }
+.mx th .so { font-size: 0.8em; opacity: 0.7; }
+.mx th[data-key] { cursor: pointer; }
+
+.mx td.c { position: relative; overflow: hidden; cursor: default; transition: box-shadow 0.12s; white-space: nowrap; }
+.mx td.c .mv { line-height: 1.15; }
+.mx td.c .ms { line-height: 1.25; margin-top: 2px; }
+.mx td.c .ms .ln { display: block; }
+.mx td.c .ms.ms-r { display: inline; margin: 0 0 0 6px; }
+.mx td.c .ms.ms-r .ln { display: inline; }
+.mx td.c .row-r { display: inline-flex; align-items: baseline; gap: 0; }
+.mx td.c .bar { position: absolute; left: 0; bottom: 0; height: 4px; border-radius: 0 2px 2px 0; pointer-events: none; }
+.mx td.c .ev { position: absolute; inset: 0; display: flex; align-items: center; font: inherit; color: inherit; }
+.mx td.c .ph { visibility: hidden; }
+
+/* ---- Export button + toast --------------------------------------------- */
+.tools { position: absolute; top: 8px; right: 8px; z-index: 5; transition: opacity 0.15s; }
+.card.tools-hover .tools { opacity: 0; }
+.card.tools-hover:hover .tools, .card.tools-hover .tools:focus-within { opacity: 1; }
+.card.tools-always .head { padding-right: 34px; }
+.tool-btn {
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid #e2e4e8; border-radius: 6px; background: #ffffff; color: #55606e; cursor: pointer; padding: 0;
+}
+.tool-btn:hover { background: #f2f4f6; color: #263244; }
+
+.toast {
+  display: none; position: fixed; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 40;
+  max-width: 86%; padding: 7px 12px; border-radius: 6px; background: #263244; color: #fff;
+  font: 12px/1.4 "Lato", -apple-system, "Segoe UI", Roboto, Arial, sans-serif; box-shadow: 0 6px 18px rgba(38, 50, 68, 0.2);
+}
+.toast.is-error { background: #b4431e; }
+
+.tt-row .vl { margin-left: 12px; }
