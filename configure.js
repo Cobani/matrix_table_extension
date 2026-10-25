@@ -222,11 +222,15 @@
     if (L.colWidth === 'fixed') g3.appendChild(numberRow('Width (px)', 'layout.colPx', 20, 600, 1));
     if (L.colWidth === 'fit') {
       g3.appendChild(numberRow('Narrowest (px)', 'layout.minColPx', 20, 400, 1));
-      g3.appendChild(numberRow('Widest (px)', 'layout.maxColPx', 0, 1200, 10));
-      g3.appendChild(help('Columns share the width, between these sizes (Widest 0 = no limit). When they don’t fit, the matrix scrolls.'));
+      g3.appendChild(numberRow('Widest (px)', 'layout.colMax', 0, 1200, 10));
+      g3.appendChild(help('Columns share the width of the worksheet, between these sizes (Widest 0 = no limit, the matrix fills the width). When they don’t fit, the matrix scrolls.'));
     }
     g3.appendChild(segRow('Row height', 'layout.rowHeight', [['auto', 'By content'], ['fixed', 'Fixed']], rebuild));
     if (L.rowHeight === 'fixed') g3.appendChild(numberRow('Height (px)', 'layout.rowPx', 12, 300, 1));
+    else {
+      g3.appendChild(checkboxRow('Fill the height', 'layout.fillHeight'));
+      g3.appendChild(help('Rows grow so the matrix fills the worksheet from top to bottom. When the rows don’t fit, the matrix scrolls instead.'));
+    }
     g3.appendChild(numberRow('Row header width', 'layout.rowHeaderPx', 0, 600, 1));
     g3.appendChild(help('Width of each row header column in px. 0 = by content.'));
     g3.appendChild(numberRow('Gap between columns', 'layout.gapX', 0, 40, 1));

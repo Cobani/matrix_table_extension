@@ -165,7 +165,8 @@
       colWidth: 'fit', // fit (fill the width) | auto (by content) | fixed
       colPx: 90,
       minColPx: 60,
-      maxColPx: 260, // fit: widest a column gets (0 = no limit)
+      colMax: 0, // fit: widest a column gets (0 = no limit, the matrix fills the width)
+      fillHeight: true, // rows grow to fill the height of the worksheet
       rowHeight: 'auto', // auto | fixed
       rowPx: 46,
       rowHeaderPx: 0, // 0 = automatic

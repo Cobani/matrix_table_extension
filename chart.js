@@ -1396,12 +1396,18 @@
       var first = t.querySelector('tbody td.c');
       var rh = first ? first.offsetLeft : 0;
       var avail = el.scroll.clientWidth;
-      var w = Math.floor((avail - rh) / Math.max(1, nData) - L.gapX);
-      if (L.maxColPx > 0) w = Math.min(w, L.maxColPx);
-      if (w > L.minColPx) Array.prototype.forEach.call(cols, function (c) { c.style.width = w + 'px'; });
+      var room = avail - rh - nData * L.gapX;
+      var w = Math.floor(room / Math.max(1, nData));
+      if (L.colMax > 0) w = Math.min(w, L.colMax);
+      if (w > L.minColPx) {
+        // spread the pixels left over by rounding, so the matrix ends exactly at the right edge
+        var spare = L.colMax > 0 && w === L.colMax ? 0 : Math.max(0, room - w * nData);
+        Array.prototype.forEach.call(cols, function (c, i) { c.style.width = (w + (i < spare ? 1 : 0)) + 'px'; });
+      }
     } else {
       t.style.width = 'auto';
     }
+    if (L.fillHeight && L.rowHeight !== 'fixed') fillHeight(t);
     if (L.freeze) {
       var gy = L.gapY; var gx = L.gapX;
       t.style.setProperty('--thead-h', (t.tHead ? t.tHead.offsetHeight : 0) + 'px');
@@ -1413,6 +1419,19 @@
         th.style.left = Math.max(0, th.offsetLeft - gx) + 'px';
       });
     }
+  }
+
+  /** Rows grow evenly (totals keep their height) so the matrix reaches the bottom of the worksheet. */
+  function fillHeight (t) {
+    var extra = Math.floor(el.scroll.clientHeight - t.getBoundingClientRect().height);
+    if (extra < 2) return;
+    var rows = Array.prototype.slice.call(t.tBodies[0].rows);
+    var grow = rows.filter(function (tr) { return !/\btr-(sub|grand)\b/.test(tr.className); });
+    if (!grow.length) grow = rows;
+    var hs = grow.map(function (tr) { return tr.getBoundingClientRect().height; });
+    var each = Math.floor(extra / grow.length);
+    var spare = extra - each * grow.length;
+    grow.forEach(function (tr, i) { tr.style.height = (hs[i] + each + (i < spare ? 1 : 0)) + 'px'; });
   }
 
   // ---------------------------------------------------------------------------
