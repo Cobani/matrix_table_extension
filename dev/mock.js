@@ -196,7 +196,7 @@
 
   window.tableau = {
     TableauEventType: { SummaryDataChanged: 'summary-data-changed', SettingsChanged: 'settings-changed' },
-    DialogStyle: { Modeless: 'modeless' },
+    DialogStyle: { Modal: 'modal', Modeless: 'modeless', Window: 'window' },
     ErrorCodes: { DialogClosedByUser: 'dialog-closed-by-user' },
     SelectionUpdateType: { Replace: 'select-replace' },
     extensions: {

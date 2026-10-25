@@ -319,6 +319,7 @@
       crosshair: true, // highlight the row and column under the mouse
       crosshairColor: '#EB644C',
       dblclick: 'format', // format | none
+      dialog: 'onTop', // onTop (modal: stays in front of Tableau) | floating (modeless: can go behind Tableau)
       selectInTableau: false, // click a cell selects its marks (dashboard actions)
       headerSort: true // click a column header to sort the rows by it
     },

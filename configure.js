@@ -625,6 +625,8 @@
     g2.appendChild(checkboxRow('Click a column header to sort', 'interaction.headerSort'));
     g2.appendChild(checkboxRow('Right-click menu', 'interaction.rightClickMenu'));
     g2.appendChild(selectRow('Double-click', 'interaction.dblclick', [['format', 'Opens its settings'], ['none', 'Nothing']]));
+    g2.appendChild(segRow('Format window', 'interaction.dialog', [['onTop', 'Always on top'], ['floating', 'Floating']]));
+    g2.appendChild(help('Always on top: the Format window stays in front of Tableau until Done or Cancel; the matrix behind it still updates live. Floating: you can click the workbook while it is open, but Tableau may cover it. Applies the next time the window opens.'));
     g2.appendChild(checkboxRow('Click selects in Tableau', 'interaction.selectInTableau'));
     g2.appendChild(help('Selects the cell’s marks, so dashboard filter and highlight actions run.'));
   }

@@ -103,7 +103,7 @@ download normally.
 | Headers | orientation, alignment, fonts per level, merge, wrap, background, lines between groups, corner, colour per member |
 | Totals | total row and column (position, label), group totals, fold, total cell look, labels, number format |
 | Sort | member order for rows and columns, rows by a column |
-| Tooltip & actions | tooltip contents, row / column highlight, header sort, right-click menu, double-click, select in Tableau |
+| Tooltip & actions | tooltip contents, row / column highlight, header sort, right-click menu, double-click, select in Tableau, Format window always on top or floating |
 | Export | export button, file name, title in Excel, smaller values in Excel, calculations and totals in data exports |
 | Numbers | one format for everything or each part its own, font |
 | Card | padding, space above the matrix, card and matrix backgrounds |

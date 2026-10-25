@@ -109,7 +109,10 @@
       (/[?&]mock\b/.test(location.search) ? '?mock' : '');
     var payload = JSON.stringify(dialogInfo(focus));
     var options = { width: 620, height: 780 };
-    if (tableau.DialogStyle && tableau.DialogStyle.Modeless) options.dialogStyle = tableau.DialogStyle.Modeless;
+    // On top (Modal) keeps the Format window in front of Tableau until Done; Floating (Modeless) lets you click the workbook but can fall behind it.
+    var DS = tableau.DialogStyle || {};
+    var style = cfg && cfg.interaction.dialog === 'floating' ? DS.Modeless : DS.Modal;
+    if (style) options.dialogStyle = style;
     return tableau.extensions.ui.displayDialogAsync(url, payload, options).catch(function (err) {
       var closed = tableau.ErrorCodes && err && err.errorCode === tableau.ErrorCodes.DialogClosedByUser;
       if (!closed) console.warn('Matrix Table dialog:', err && err.message);
