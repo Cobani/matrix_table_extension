@@ -31,7 +31,7 @@ chmod +x serve.sh && ./serve.sh
 ```
 
 In Tableau Desktop (2024.2+): Marks card → mark type dropdown → **Add Extension** → **Access Local Extensions** →
-`matrix-table localhost.trex` (in the `tableau-extensions` folder; it points at `http://localhost:8770`).
+`matrix-table.trex` (in the `tableau-extensions` folder; it loads the extension from GitHub Pages).
 
 To try it without Tableau, open <http://localhost:8770/dev/preview.html>. It has ten sample data sets (From → To
 products, Region › Segment by Year with a Color measure, two levels on both axes, months by year, negatives, raw large
