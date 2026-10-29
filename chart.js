@@ -760,8 +760,11 @@
     };
 
     // ---- trees + sorting
-    var rTree = buildTree(raw.rows, getR, getRD, nR);
-    var cTree = buildTree(raw.rows, getC, getCD, nC);
+    // Tableau hands viz extensions the summary data last-to-first, so "As in the data" reads it backwards
+    // to show members in the worksheet's order.
+    var inOrder = raw.rows.slice().reverse();
+    var rTree = buildTree(inOrder, getR, getRD, nR);
+    var cTree = buildTree(inOrder, getC, getCD, nC);
     // From → To matrices: the same members on both axes (missing ones show as empty cells)
     var sq = cfg.layout.square;
     if (sq === 'auto' && nR === 1 && nC === 1) {

@@ -161,7 +161,8 @@
       var name = RENAME && f.tile === 'rows' && i === 0 ? 'Calculation_8812' : f.name;
       return { fieldName: name, fieldId: '[' + name + ']', dataType: DIMS[f.tile] ? 'string' : 'float', index: i, src: f.name };
     });
-    var data = DS.rows.map(function (r) { return cols.map(function (c) { return cell(r[c.src]); }); });
+    // Like Tableau, hand the rows over last-to-first.
+    var data = DS.rows.slice().reverse().map(function (r) { return cols.map(function (c) { return cell(r[c.src]); }); });
     return { columns: cols.map(function (c) { return { fieldName: c.fieldName, fieldId: c.fieldId, dataType: c.dataType, index: c.index }; }), data: data };
   }
 
